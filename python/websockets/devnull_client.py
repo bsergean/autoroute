@@ -15,40 +15,46 @@ except ImportError:
 
 msgCount = 0
 msgCountTotal = 0
+stopTimer = False
 
 async def timer():
     global msgCount
     global msgCountTotal
+    global stopTimer
 
-    while True:
+    while not stopTimer:
         print(f'Received messages: {msgCount} per second {msgCountTotal} total')
         msgCount = 0
 
         await asyncio.sleep(1)
 
 
-async def client(url, msg_count):
+async def client(args):
     global msgCount
     global msgCountTotal
+    global stopTimer
 
     asyncio.ensure_future(timer())
 
-    url += f'/{msg_count}'
-    async with websockets.connect(url) as ws:
+    args.url += f'/{args.msg_count}'
+    async with websockets.connect(args.url) as ws:
         async for message in ws:
             msgCount += 1
             msgCountTotal += 1
 
-            if msgCountTotal == msg_count:
+            if msgCountTotal == args.msg_count:
                 break
+
+    print('Stopping timer')
+    stopTimer = True
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='websocket proxy.')
     parser.add_argument('--url', help='Remote websocket url',
-                        default='wss://echo.websocket.org')
+                        default='ws://localhost:8008')
     parser.add_argument('--msg_count', help='Remote websocket url',
-                        default=1000 * 1000)
+                        default=1000 * 1000, type=int)
     args = parser.parse_args()
 
-    asyncio.get_event_loop().run_until_complete(client(args.url, args.msg_count))
+    asyncio.get_event_loop().run_until_complete(client(args))
