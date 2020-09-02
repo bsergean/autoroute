@@ -1,13 +1,9 @@
 .PHONY: docker
 
-NAME   := ${DOCKER_REPO}/autoroute-python-websockets
-TAG    := $(shell cat DOCKER_VERSION)
+NAME   := ${DOCKER_REPO}/autoroute-libwebsockets
+TAG    := $(cat ../../DOCKER_VERSION)
 IMG    := ${NAME}:${TAG}
-LATEST := ${NAME}:latest
 BUILD  := ${NAME}:build
-
-docker_test:
-	docker build -t ${BUILD} .
 
 docker:
 	git clean -dfx
@@ -15,6 +11,7 @@ docker:
 	docker tag ${IMG} ${BUILD}
 
 docker_push:
-	docker tag ${IMG} ${LATEST}
 	docker push ${LATEST}
 	docker push ${IMG}
+
+deploy: docker docker_push

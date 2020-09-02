@@ -1,0 +1,13 @@
+version: "3.3"
+services:
+  push:
+    entrypoint: ws push_server --host 0.0.0.0 --msg_count 2000000
+    image: ${DOCKER_REPO}/ws:build
+
+  autoroute:
+    entrypoint: python3 /usr/bin/devnull_client.py --url ws://push:8008
+    image: ${DOCKER_REPO}/autoroute-python-websockets:build
+    depends_on:
+      - push
+    environment:
+      - PYTHONUNBUFFERED=1
