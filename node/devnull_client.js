@@ -22,10 +22,20 @@
 //
 const WebSocket = require('ws');
 
-const ws = new WebSocket('ws://localhost:8008');
+if (process.argv.length < 3) {
+  console.log('Needs url and msg count as parameters');
+  process.exit(1);
+}
+
+let url = process.argv[2];
+let msgCount = process.argv[3];
+msgCount = parseInt(msgCount);
+
+url += `/${msgCount}`
+const ws = new WebSocket(url)
 
 ws.on('open', function open() {
-  ws.send('hello from node');
+  console.log('connected');
 });
 
 ws.on('close', function open() {
@@ -34,6 +44,7 @@ ws.on('close', function open() {
 });
 
 var receivedMessages = 0;
+var receivedMessagesTotal = 0;
 
 setInterval(function timeout() {
   console.log(`messages received per second: ${receivedMessages}`)
@@ -42,4 +53,10 @@ setInterval(function timeout() {
 
 ws.on('message', function incoming(data) {
   receivedMessages += 1;
+  receivedMessagesTotal += 1;
+
+  if (receivedMessagesTotal == msgCount) {
+    console.log(`received all messages (${msgCount})`);
+    process.exit();
+  }
 });
