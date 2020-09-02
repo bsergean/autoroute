@@ -28,6 +28,11 @@ ws.on('open', function open() {
   ws.send('hello from node');
 });
 
+ws.on('close', function open() {
+  console.log('remote connection closed');
+  process.exit();
+});
+
 var receivedMessages = 0;
 
 setInterval(function timeout() {
@@ -38,5 +43,3 @@ setInterval(function timeout() {
 ws.on('message', function incoming(data) {
   receivedMessages += 1;
 });
-
-
