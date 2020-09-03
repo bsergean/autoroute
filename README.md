@@ -6,8 +6,8 @@ A project similar in spirit to [Autobahn](https://crossbar.io/autobahn/), the gr
 
 This is probably only working on my machine so far ...
 
-1. The ws container needs to be built locally. Clone [IXWebSocket](https://github.com/machinezone/IXWebSocket), and type `env DOCKER_REPO=foo make docker`.
-2. Enter one of the folders (cpp/ixwebsocket) and type `docker-compose up`.
+1. The ws container needs to be built locally. Clone [IXWebSocket](https://github.com/machinezone/IXWebSocket), and from the top folder type `env DOCKER_REPO=local make docker`. Ultimately we will upload the ws container to a repository which allows anonymous access.
+2. Enter one of the folders (cpp/ixwebsocket) and type `env DOCKER_REPO=local docker-compose up`.
 
 ```
 ixwebsocket$ docker-compose up
