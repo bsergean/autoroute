@@ -3,7 +3,7 @@ all: docker
 
 .PHONY: docker
 
-NAME   := ${DOCKER_REPO}/autoroute-node
+NAME   := ${DOCKER_REPO}/autoroute-ruby
 TAG    := $(shell cat DOCKER_VERSION)
 IMG    := ${NAME}:${TAG}
 LATEST := ${NAME}:latest

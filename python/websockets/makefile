@@ -1,3 +1,6 @@
+all: docker
+	docker-compose up
+
 .PHONY: docker
 
 NAME   := ${DOCKER_REPO}/autoroute-python-websockets

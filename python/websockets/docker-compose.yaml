@@ -5,7 +5,7 @@ services:
     image: ${DOCKER_REPO}/ws:build
 
   autoroute:
-    entrypoint: python3 /usr/bin/autoroute.py --msg_count 1000000 --url ws://push:8008
+    entrypoint: python3 /usr/bin/autoroute.py --msg_count 100000 --url ws://push:8008
     image: ${DOCKER_REPO}/autoroute-python-websockets:build
     depends_on:
       - push
