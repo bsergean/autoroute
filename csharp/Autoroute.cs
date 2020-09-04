@@ -93,7 +93,8 @@ public class DevNullClientCli
         timer.Enabled = true;
         timer.Start();
 
-        var url = "ws://localhost:8008";
+        // var url = "ws://localhost:8008/1000000";
+        var url = "ws://push:8008/1000000";
         await ReceiveMessagesAsync(url);
     }
 }
