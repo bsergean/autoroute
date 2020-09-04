@@ -5,7 +5,7 @@ services:
     image: ${DOCKER_REPO}/ws:build
 
   autoroute:
-    entrypoint: node /usr/bin/autoroute.js ws://push:8008 100000
-    image: ${DOCKER_REPO}/autoroute-node:build
+    entrypoint: ruby /usr/bin/autoroute.rb ws://push:8008 1000000
+    image: ${DOCKER_REPO}/autoroute-ruby:build
     depends_on:
       - push

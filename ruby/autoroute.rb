@@ -31,13 +31,19 @@
 require 'faye/websocket'
 require 'eventmachine'
 
+url = ARGV[0]
+msgCount = ARGV[1]
+
+url = "#{url}/#{msgCount}"
+puts "#{url}"
+
 EM.run {
-  ws = Faye::WebSocket::Client.new('ws://127.0.0.1:8008')
+  ws = Faye::WebSocket::Client.new(url)
 
   counter = 0
 
   EM.add_periodic_timer(1) do
-    print "messages received per second: #{counter}\n"
+    p "messages received per second: #{counter}"
     counter = 0  # reset counter
   end
 

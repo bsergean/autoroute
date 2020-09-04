@@ -1,5 +1,5 @@
 all: docker
-        docker-compose up
+	docker-compose up
 
 .PHONY: docker
 
