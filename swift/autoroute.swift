@@ -9,7 +9,10 @@
 // got message 15295
 // got message 15777
 // ...
-// 
+//
+// This code does not work on Linux yet, the websocket module is not available on this platform.
+// Swift on Linux still seems to be in the early days, even if the situation now is better
+// with docker containers available.
 //
 import Foundation
 
