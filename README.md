@@ -52,8 +52,18 @@ autoroute_1  | [2020-09-03 01:58:57.010] [info] messages received: 52241 per sec
 
 # Languages
 
-* C++
+* C / C++
 * Python
 * Node.js
 * Ruby
 * C#
+* Swift (no docker yet)
+
+Others I would like to try:
+
+* Go
+* Java
+* Scala
+* Rust
+* Ziglang
+* C++ (boost beast + websocketpp library)
