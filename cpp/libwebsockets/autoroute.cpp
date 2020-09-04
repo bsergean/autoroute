@@ -147,8 +147,9 @@ int main(int argc, const char** argv)
     memset(&i, 0, sizeof i); /* otherwise uninitialized garbage */
     i.context = context;
     i.port = 8008;
-    i.address = "127.0.0.1";
-    i.path = "/";
+    // i.address = "127.0.0.1";
+    i.address = "push";
+    i.path = "/1000000";
     i.host = i.address;
     i.origin = i.address;
     i.protocol = protocols[0].name; /* "dumb-increment-protocol" */
