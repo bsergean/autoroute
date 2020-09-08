@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  push:
+    entrypoint: ws push_server --host 0.0.0.0
+    image: ${DOCKER_REPO}/ws:build
+
+  autoroute:
+    entrypoint: cargo run
+    image: ${DOCKER_REPO}/autoroute-rust:build
+    depends_on:
+      - push

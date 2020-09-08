@@ -18,7 +18,7 @@ fn main() {
     });
 
     let (mut socket, response) =
-        connect(Url::parse("ws://localhost:8008/1000000").unwrap()).expect("Can't connect");
+        connect(Url::parse("ws://push:8008/1000000").unwrap()).expect("Can't connect");
 
     println!("Connected to the server");
     println!("Response HTTP code: {}", response.status());
