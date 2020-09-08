@@ -4,8 +4,8 @@ The protocol to run the test is very simple, our goal being that writing a new c
 
 1. A test server needs to run.
 2. The client connect to the test server with a url: ws://test-server:port/N. N is the number of messages that the client requests the server to send.
-3. Every second, the server should display how many messages it was able to receive. Messages are sent in TEXT mode.
-4. When the N messages have been received, the server should close the connection, and display statistics.
+3. Every second, the client should display how many messages it was able to receive. Messages are sent in TEXT mode.
+4. When the N messages have been received, the client should close the connection, and display statistics.
 
 # Demo
 
