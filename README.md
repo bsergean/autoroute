@@ -2,7 +2,7 @@
 
 A project similar in spirit to [Autobahn](https://crossbar.io/autobahn/), the great test suite for WebSocket. Autobahn and autoroute means freeway in German and French, respectively.
 
-The goal of this project is to measure how fast a websocket server can send N messages to a websocket client, with various languages and library.
+The goal of this project is to measure how fast a websocket client can receive N messages sent from a websocket server, with various languages and library.
 
 # Running
 
