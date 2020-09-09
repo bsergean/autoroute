@@ -2,7 +2,7 @@ version: "3.3"
 services:
   push:
     entrypoint: ws push_server --host 0.0.0.0
-    image: ${DOCKER_REPO}/ws:build
+    image: bsergean/ws:10.3.4
 
   autoroute:
     entrypoint: python3 /usr/bin/autoroute.py --msg_count 100000 --url ws://push:8008

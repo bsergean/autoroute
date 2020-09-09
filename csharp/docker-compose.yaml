@@ -2,7 +2,7 @@ version: "3.3"
 services:
   push:
     entrypoint: ws push_server --host 0.0.0.0
-    image: ${DOCKER_REPO}/ws:build
+    image: bsergean/ws:10.3.4
 
   autoroute:
     image: ${DOCKER_REPO}/autoroute-csharp:build
