@@ -33,6 +33,7 @@ require 'eventmachine'
 
 url = ARGV[0]
 msgCount = ARGV[1]
+target = msgCount.to_i
 
 url = "#{url}/#{msgCount}"
 puts "#{url}"
@@ -56,6 +57,11 @@ EM.run {
     # Uncomment the next line to validate that we receive something correct
     # p [:message, event.data]
     counter += 1
+
+    target = target - 1
+    if target == 0
+        exit 0
+    end
   end
 
   ws.on :close do |event|
