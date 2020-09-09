@@ -17,8 +17,12 @@ fn main() {
         }
     });
 
+    let mut target = 1000000;
+    let url = "ws://localhost:8008";
+    let full_url = format!("{}/{}", url, target);
+
     let (mut socket, response) =
-        connect(Url::parse("ws://push:8008/1000000").unwrap()).expect("Can't connect");
+        connect(Url::parse(&full_url).unwrap()).expect("Can't connect");
 
     println!("Connected to the server");
     println!("Response HTTP code: {}", response.status());
@@ -30,6 +34,13 @@ fn main() {
     loop {
         socket.read_message().expect("Error reading message");
         RECEIVED_MESSAGES.fetch_add(1, Ordering::Relaxed);
+
+        target -= 1;
+        if target == 0 {
+            println!("done");
+            socket.close(None);
+            break;
+        }
     }
     // socket.close(None);
 }
