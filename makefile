@@ -5,10 +5,11 @@ folders := \
 	rust \
 	cpp/ixwebsocket \
 	cpp/libwebsockets \
-	swift \
 	csharp \
 	node \
 	ruby
+
+# swift
 
 log_file := /tmp/autoroute.log
 

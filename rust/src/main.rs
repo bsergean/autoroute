@@ -18,7 +18,7 @@ fn main() {
     });
 
     let mut target = 1000000;
-    let url = "ws://localhost:8008";
+    let url = "ws://push:8008";
     let full_url = format!("{}/{}", url, target);
 
     let (mut socket, response) =
