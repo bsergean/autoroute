@@ -1,13 +1,12 @@
 # Autoroute
 
-A project similar in spirit to [Autobahn](https://crossbar.io/autobahn/), the great test suite for WebSocket.
+A project similar in spirit to [Autobahn](https://crossbar.io/autobahn/), the great test suite for WebSocket. Autobahn and autoroute means freeway in German and French, respectively.
+
+The goal of this project is to measure how fast a websocket server can send N messages to a websocket client, with various languages and library.
 
 # Running
 
-This is probably only working on my machine so far ...
-
-1. The ws container needs to be built locally. Clone [IXWebSocket](https://github.com/machinezone/IXWebSocket), and from the top folder type `env DOCKER_REPO=local make docker`. Ultimately we will upload the ws container to a repository which allows anonymous access.
-2. Enter one of the folders (cpp/ixwebsocket) and type `env DOCKER_REPO=local docker-compose up`.
+2. Enter one of the folders (cpp/ixwebsocket, go, csharp, etc...) and type `make`.
 
 ```
 ixwebsocket$ docker-compose up
@@ -58,12 +57,12 @@ autoroute_1  | [2020-09-03 01:58:57.010] [info] messages received: 52241 per sec
 * Ruby
 * C#
 * Swift (no docker yet)
+* Go
+* Rust
 
 Others I would like to try:
 
-* Go
 * Java
 * Scala
-* Rust
 * Ziglang
 * C++ (boost beast + websocketpp library)

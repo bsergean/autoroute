@@ -3,6 +3,9 @@ all: docker
 
 .PHONY: docker
 
+DOCKER_REPO ?= localhost
+export DOCKER_REPO
+
 NAME   := ${DOCKER_REPO}/autoroute-ruby
 TAG    := $(shell cat DOCKER_VERSION)
 IMG    := ${NAME}:${TAG}
