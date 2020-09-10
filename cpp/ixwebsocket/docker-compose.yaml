@@ -5,7 +5,7 @@ services:
     image: bsergean/ws:10.3.4
 
   autoroute:
-    entrypoint: strace -f ws autoroute ws://push:8008
-    image: bsergean/ws:10.3.4
+    entrypoint: ws autoroute ws://push:8008
+    image: bsergean/ws:10.3.5
     depends_on:
       - push
