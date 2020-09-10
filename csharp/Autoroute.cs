@@ -63,7 +63,7 @@ public class DevNullClientCli
         receivedMessage = 0;
     }
 
-    public static async Task ReceiveMessagesAsync(string url)
+    public static async Task ReceiveMessagesAsync(string url, int target)
     {
         var ws = new ClientWebSocket();
 
@@ -77,6 +77,9 @@ public class DevNullClientCli
             {
                 var data = await DevNullClientCli.ReceiveAsync(ws, cancellationToken);
                 receivedMessage += 1;
+
+                target -= 1;
+                if (target == 0) break;
             }
         }
         catch (System.Net.WebSockets.WebSocketException e)
@@ -93,8 +96,9 @@ public class DevNullClientCli
         timer.Enabled = true;
         timer.Start();
 
-        // var url = "ws://localhost:8008/1000000";
-        var url = "ws://push:8008/1000000";
-        await ReceiveMessagesAsync(url);
+        var target = 1000 * 1000;
+
+        var url = $"ws://push:8008/{target}";
+        await ReceiveMessagesAsync(url, target);
     }
 }
