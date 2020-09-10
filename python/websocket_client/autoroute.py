@@ -19,20 +19,25 @@ messages received per second: 41505
 '''
 
 import websocket
-ws = websocket.WebSocket()
-
-import websocket
 import _thread as thread
 import time
+import sys
+import argparse
 
 messageCount = 0
+target = 0
 
 def on_message(ws, message):
     global messageCount
+    global target
     messageCount += 1
 
+    target -= 1
+    if target == 0:
+        sys.exit(0)
+
 def on_error(ws, error):
-    print(error)
+    print(f'error: {error}')
 
 def on_close(ws):
     print("### closed ###")
@@ -48,8 +53,18 @@ def on_open(ws):
 
 
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(description='websocket proxy.')
+    parser.add_argument('--url', help='Remote websocket url',
+                        default='ws://localhost:8008')
+    parser.add_argument('--msg_count', help='Remote websocket url',
+                        default=1000 * 1000, type=int)
+    args = parser.parse_args()
+
+    url = f'{args.url}/{args.msg_count}'
+    target = args.msg_count
+
     # websocket.enableTrace(True)
-    url = "ws://localhost:8008/1000000"
     ws = websocket.WebSocketApp(url,
                                 on_message = on_message,
                                 on_error = on_error,
