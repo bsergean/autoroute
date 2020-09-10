@@ -8,15 +8,15 @@ The goal of this project is to measure how fast a websocket client can receive N
 
 | Language  | Library                  |
 |-----------|--------------------------|
-| C++       | IXWebSocket[1]           |
-| C++       | libwebsockets[2]         |
-| Ruby      | faye-websocket[3]        |
-| Python    | websockets[4]            |
-| Python    | websocket_client[5]      |
-| Node.js   | ws[6]                    |
-| C#        | System.Net.WebSockets[7] |
-| Go        | nhooyr.io[8]             |
-| Rust      | tungstenite[9]           |
+| C++       | IXWebSocket [1]          |
+| C++       | libwebsockets [2]        |
+| Ruby      | faye-websocket [3]       |
+| Python    | websockets [4]           |
+| Python    | websocket_client [5]     |
+| Node.js   | ws [6]                   |
+| C#        | System.Net.WebSockets [7]|
+| Go        | nhooyr.io [8]            |
+| Rust      | tungstenite [9]          |
 
 [1]: https://github.com/machinezone/IXWebSocket
 [2]: https://libwebsockets.org/
