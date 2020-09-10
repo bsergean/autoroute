@@ -6,6 +6,6 @@ services:
 
   autoroute:
     image: ${DOCKER_REPO}/autoroute-libwebsockets:build
-    entrypoint: /usr/bin/autoroute
+    entrypoint: /usr/bin/autoroute push
     depends_on:
       - push

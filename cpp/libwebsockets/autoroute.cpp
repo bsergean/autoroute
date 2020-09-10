@@ -17,7 +17,7 @@
  * per second can be received.
  *
  * libwebsockets$ make && ./a.out
- * g++ --std=c++14 -I/usr/local/opt/openssl/include devnull_client.cpp -lwebsockets
+ * g++ --std=c++14 -I/usr/local/opt/openssl/include autoroute.cpp -lwebsockets
  * messages received: 0 per second 0 total
  * [2020/08/02 19:22:21:4774] U: LWS minimal ws client rx [-d <logs>] [--h2]
  * [2020/08/02 19:22:21:4814] U: callback_dumb_increment: established
@@ -47,6 +47,7 @@ static int interrupted;
 static struct lws* client_wsi;
 
 std::atomic<uint64_t> receivedCount(0);
+std::atomic<uint64_t> target(0);
 
 static int callback_dumb_increment(
     struct lws* wsi, enum lws_callback_reasons reason, void* user, void* in, size_t len)
@@ -61,7 +62,15 @@ static int callback_dumb_increment(
 
         case LWS_CALLBACK_CLIENT_ESTABLISHED: lwsl_user("%s: established\n", __func__); break;
 
-        case LWS_CALLBACK_CLIENT_RECEIVE: receivedCount++; break;
+        case LWS_CALLBACK_CLIENT_RECEIVE:
+             receivedCount++; 
+
+             target -= 1;
+             if (target == 0)
+             {
+                 interrupted = 1;
+             }
+             break;
 
         case LWS_CALLBACK_CLIENT_CLOSED: client_wsi = NULL; break;
 
@@ -144,12 +153,18 @@ int main(int argc, const char** argv)
         return 1;
     }
 
+    // input data
+    std::string host(argv[1]);
+    target = 1000000;
+
+    std::string path("/");
+    path += std::to_string(target);
+
     memset(&i, 0, sizeof i); /* otherwise uninitialized garbage */
     i.context = context;
     i.port = 8008;
-    // i.address = "127.0.0.1";
-    i.address = "push";
-    i.path = "/1000000";
+    i.address = host.c_str();
+    i.path = path.c_str();
     i.host = i.address;
     i.origin = i.address;
     i.protocol = protocols[0].name; /* "dumb-increment-protocol" */
