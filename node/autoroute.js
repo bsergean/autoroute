@@ -30,6 +30,7 @@ if (process.argv.length < 3) {
 let url = process.argv[2];
 let msgCount = process.argv[3];
 msgCount = parseInt(msgCount);
+let target = msgCount;
 
 url += `/${msgCount}`
 const ws = new WebSocket(url)
@@ -44,7 +45,6 @@ ws.on('close', function open() {
 });
 
 var receivedMessages = 0;
-var receivedMessagesTotal = 0;
 
 setInterval(function timeout() {
   console.log(`messages received per second: ${receivedMessages}`)
@@ -53,9 +53,9 @@ setInterval(function timeout() {
 
 ws.on('message', function incoming(data) {
   receivedMessages += 1;
-  receivedMessagesTotal += 1;
 
-  if (receivedMessagesTotal == msgCount) {
+  target -= 1;
+  if (target == 0) {
     console.log(`received all messages (${msgCount})`);
     process.exit();
   }
