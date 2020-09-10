@@ -4,6 +4,30 @@ A project similar in spirit to [Autobahn](https://crossbar.io/autobahn/), the gr
 
 The goal of this project is to measure how fast a websocket client can receive N messages sent from a websocket server, with various languages and library.
 
+# Language matrix
+
+| Language  | Library                  |
+|-----------|--------------------------|
+| C++       | IXWebSocket[1]           |
+| C++       | libwebsockets[2]         |
+| Ruby      | faye-websocket[3]        |
+| Python    | websockets[4]            |
+| Python    | websocket_client[5]      |
+| Node.js   | ws[6]                    |
+| C#        | System.Net.WebSockets[7] |
+| Go        | nhooyr.io[8]             |
+| Rust      | tungstenite[9]           |
+
+[1]: https://github.com/machinezone/IXWebSocket
+[2]: https://libwebsockets.org/
+[3]: https://github.com/faye/faye-websocket-ruby
+[4]: https://github.com/aaugustin/websockets
+[5]: https://pypi.org/project/websocket_client/
+[6]: https://github.com/websockets/ws
+[7]: https://docs.microsoft.com/en-us/dotnet/api/system.net.websockets.websocket
+[8]: https://github.com/nhooyr/websocket
+[9]: https://github.com/snapview/tungstenite-rs
+
 # Running
 
 2. Enter one of the folders (cpp/ixwebsocket, go, csharp, etc...) and type `make`.
@@ -49,16 +73,7 @@ autoroute_1  | [2020-09-03 01:58:57.010] [info] messages received: 52241 per sec
 ... it should stop here but does not right now because of a bug ...
 ```
 
-# Languages
-
-* C / C++
-* Python
-* Node.js
-* Ruby
-* C#
-* Swift (no docker yet)
-* Go
-* Rust
+# Missing languages
 
 Others I would like to try:
 
