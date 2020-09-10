@@ -5,7 +5,7 @@ services:
     image: bsergean/ws:10.3.4
 
   autoroute:
-    entrypoint: cargo run --release
+    entrypoint: /app/target/release/autoroute
     image: ${DOCKER_REPO}/autoroute-rust:build
     depends_on:
       - push
