@@ -8,8 +8,10 @@ The goal of this project is to measure how fast a websocket client can receive N
 
 | Language  | Library                  |
 |-----------|--------------------------|
-| C++       | IXWebSocket [1]          |
-| C++       | libwebsockets [2]        |
+| C         | libwebsockets [1]        |
+| C++       | IXWebSocket [2]          |
+| C++       | websocketpp Beast [3]    |
+| C++       | Boost Beast [2]          |
 | Ruby      | faye-websocket [3]       |
 | Python    | websockets [4]           |
 | Python    | websocket_client [5]     |
@@ -18,15 +20,17 @@ The goal of this project is to measure how fast a websocket client can receive N
 | Go        | nhooyr.io [8]            |
 | Rust      | tungstenite [9]          |
 
-[1]: https://github.com/machinezone/IXWebSocket
-[2]: https://libwebsockets.org/
-[3]: https://github.com/faye/faye-websocket-ruby
-[4]: https://github.com/aaugustin/websockets
-[5]: https://pypi.org/project/websocket_client/
-[6]: https://github.com/websockets/ws
-[7]: https://docs.microsoft.com/en-us/dotnet/api/system.net.websockets.websocket
-[8]: https://github.com/nhooyr/websocket
-[9]: https://github.com/snapview/tungstenite-rs
+[1]: https://libwebsockets.org/
+[2]: https://github.com/machinezone/IXWebSocket
+[3]: https://github.com/zaphoyd/websocketpp
+[4]: https://github.com/boostorg/beast
+[5]: https://github.com/faye/faye-websocket-ruby
+[6]: https://github.com/aaugustin/websockets
+[7]: https://pypi.org/project/websocket_client/
+[8]: https://github.com/websockets/ws
+[9]: https://docs.microsoft.com/en-us/dotnet/api/system.net.websockets.websocket
+[10]: https://github.com/nhooyr/websocket
+[11]: https://github.com/snapview/tungstenite-rs
 
 # Running
 

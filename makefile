@@ -5,6 +5,7 @@ folders := \
 	rust \
 	cpp/ixwebsocket \
 	cpp/libwebsockets \
+	cpp/beast \
 	csharp \
 	node \
 	ruby
