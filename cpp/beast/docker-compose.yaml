@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  push:
+    entrypoint: ws push_server --host 0.0.0.0
+    image: bsergean/ws:10.3.4
+
+  autoroute:
+    image: ${DOCKER_REPO}/autoroute-beast:build
+    entrypoint: /usr/bin/autoroute push 8008 1000000
+    depends_on:
+      - push
