@@ -6,6 +6,6 @@ services:
 
   autoroute:
     image: ${DOCKER_REPO}/autoroute-websocketpp:build
-    entrypoint: /usr/bin/autoroute ws://push:8008/1000000
+    entrypoint: /usr/bin/autoroute ws://push:8008 1000000
     depends_on:
       - push

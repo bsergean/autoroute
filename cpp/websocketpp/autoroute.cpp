@@ -45,37 +45,36 @@ using websocketpp::lib::bind;
 typedef websocketpp::config::asio_client::message_type::ptr message_ptr;
 
 std::atomic<uint64_t> receivedCountPerSecs(0);
-std::atomic<uint64_t> target(1000 * 1000);
-std::mutex conditionVariableMutex;
+std::atomic<uint64_t> target(0);
 std::atomic<bool> stop(false);
 
 // This message handler will be invoked once for each incoming message. It
 // prints the message and then sends a copy of the message back to the server.
-void on_message(client* c, websocketpp::connection_hdl hdl, message_ptr msg) {
-#if 0
-    std::cout << "on_message called with hdl: " << hdl.lock().get()
-              << " and message: " << msg->get_payload()
-              << std::endl;
-#endif
+void on_message(client* c, websocketpp::connection_hdl hdl, message_ptr msg)
+{
     receivedCountPerSecs++;
 
-    target -= 1;
+    target--;
     if (target == 0)
     {
+        stop = true;
+        websocketpp::lib::error_code ec;
+        c->close(hdl, websocketpp::close::status::going_away, "autoroute run completed", ec);
     }
-
-#if 0
-    websocketpp::lib::error_code ec;
-
-    c->send(hdl, msg->get_payload(), msg->get_opcode(), ec);
-    if (ec) {
-        std::cout << "Echo failed because: " << ec.message() << std::endl;
-    }
-#endif
 }
 
-int main(int argc, char* argv[]) {
+void on_open(client* c, websocketpp::connection_hdl hdl)
+{
+    std::cerr << "connection opened" << std::endl;
+}
 
+void on_close(client* c, websocketpp::connection_hdl hdl)
+{
+    std::cerr << "connection closed" << std::endl;
+}
+
+int main(int argc, char* argv[])
+{
     auto timer = [] {
         while (!stop)
         {
@@ -84,8 +83,8 @@ int main(int argc, char* argv[]) {
     	    // as those are used externally, so we need to introduce
     	    // our own counters
     	    //
-    	    std::stringstream ss;
-	    std::cerr << "messages received per second: " << receivedCountPerSecs << std::endl;
+            std::stringstream ss;
+            std::cerr << "messages received per second: " << receivedCountPerSecs << std::endl;
     
     	    receivedCountPerSecs = 0;
     
@@ -96,16 +95,22 @@ int main(int argc, char* argv[]) {
     
     std::thread t1(timer);
 
-    // Create a client endpoint
-    client c;
+    std::string url = argv[1];
 
-    std::string uri = "ws://localhost:9090:1000000";
+	std::stringstream ss;
+	ss << argv[2];
+    int msgCount = 0;
+	ss >> msgCount;
 
-    if (argc == 2) {
-        uri = argv[1];
-    }
+    target = msgCount;
+
+    url += "/";
+    url += argv[2];
 
     try {
+        // Create a client endpoint
+        client c;
+
         // Set logging to be pretty verbose (everything except message payloads)
         c.set_access_channels(websocketpp::log::alevel::all);
         c.clear_access_channels(websocketpp::log::alevel::frame_payload);
@@ -115,9 +120,10 @@ int main(int argc, char* argv[]) {
 
         // Register our message handler
         c.set_message_handler(bind(&on_message,&c,::_1,::_2));
+        c.set_open_handler(bind(&on_open,&c,::_1));
 
         websocketpp::lib::error_code ec;
-        client::connection_ptr con = c.get_connection(uri, ec);
+        client::connection_ptr con = c.get_connection(url, ec);
         if (ec) {
             std::cout << "could not create connection because: " << ec.message() << std::endl;
             return 0;
@@ -131,6 +137,9 @@ int main(int argc, char* argv[]) {
         // this will cause a single connection to be made to the server. c.run()
         // will exit when this connection is closed.
         c.run();
+
+        // stop the progress reporting
+        t1.join();
     } catch (websocketpp::exception const & e) {
         std::cout << e.what() << std::endl;
     }
