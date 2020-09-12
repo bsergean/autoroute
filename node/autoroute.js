@@ -33,9 +33,10 @@ msgCount = parseInt(msgCount);
 let target = msgCount;
 
 url += `/${msgCount}`
-const ws = new WebSocket(url)
+const ws = new WebSocket(url, {perMessageDeflate: false})
 
 ws.on('open', function open() {
+  startTime = new Date();
   console.log('connected');
 });
 
@@ -56,7 +57,9 @@ ws.on('message', function incoming(data) {
 
   target -= 1;
   if (target == 0) {
-    console.log(`received all messages (${msgCount})`);
+    endTime = new Date();
+    let duration = endTime - startTime; //in ms
+    console.log(`AUTOROUTE Python websockets :: ${duration} ms`)
     process.exit();
   }
 });
