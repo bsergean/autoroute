@@ -5,6 +5,7 @@
 import argparse
 import asyncio
 import websockets
+import time
 
 try:
     import uvloop
@@ -36,6 +37,7 @@ async def client(args):
     target = args.msg_count
     args.url += f'/{target}'
     async with websockets.connect(args.url) as ws:
+        start = time.time()
         async for message in ws:
             msgCount += 1
 
@@ -43,7 +45,9 @@ async def client(args):
             if target == 0:
                 break
 
-    print('Stopping timer')
+    duration = time.time() - start
+    duration = int(1000 * duration)
+    print(f'AUTOROUTE Python websockets :: {duration} ms')
     stopTimer = True
 
 

@@ -26,14 +26,19 @@ import argparse
 
 messageCount = 0
 target = 0
+start = 0
 
 def on_message(ws, message):
     global messageCount
     global target
+    global start
     messageCount += 1
 
     target -= 1
     if target == 0:
+        duration = time.time() - start
+        duration = int(1000 * duration)
+        print(f'AUTOROUTE Python websocket_client :: {duration} ms')
         sys.exit(0)
 
 def on_error(ws, error):
@@ -43,6 +48,9 @@ def on_close(ws):
     print("### closed ###")
 
 def on_open(ws):
+    global start
+    start = time.time()
+
     def run(*args):
         global messageCount
         while True:
