@@ -47,6 +47,7 @@ typedef websocketpp::config::asio_client::message_type::ptr message_ptr;
 std::atomic<uint64_t> receivedCountPerSecs(0);
 std::atomic<uint64_t> target(0);
 std::atomic<bool> stop(false);
+std::chrono::time_point<std::chrono::high_resolution_clock> start;
 
 // This message handler will be invoked once for each incoming message. It
 // prints the message and then sends a copy of the message back to the server.
@@ -57,6 +58,12 @@ void on_message(client* c, websocketpp::connection_hdl hdl, message_ptr msg)
     target--;
     if (target == 0)
     {
+        auto now = std::chrono::high_resolution_clock::now();
+        auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(now - start);
+        auto ms = milliseconds.count();
+
+        std::cerr << "AUTOROUTE C++ websocketpp :: " << ms << std::endl;
+
         stop = true;
         websocketpp::lib::error_code ec;
         c->close(hdl, websocketpp::close::status::going_away, "autoroute run completed", ec);
@@ -66,6 +73,7 @@ void on_message(client* c, websocketpp::connection_hdl hdl, message_ptr msg)
 void on_open(client* c, websocketpp::connection_hdl hdl)
 {
     std::cerr << "connection opened" << std::endl;
+    start = std::chrono::high_resolution_clock::now();
 }
 
 void on_close(client* c, websocketpp::connection_hdl hdl)
