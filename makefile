@@ -6,6 +6,7 @@ folders := \
 	cpp/ixwebsocket \
 	cpp/libwebsockets \
 	cpp/beast \
+	cpp/websocketpp \
 	csharp \
 	node \
 	ruby
