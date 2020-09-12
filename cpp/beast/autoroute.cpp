@@ -34,36 +34,36 @@ int main(int argc, char** argv)
         auto const host = argv[1];
         auto const port = argv[2];
 
-	std::stringstream ss;
-	ss << argv[3];
-	int msgCount = 0;
-	ss >> msgCount;
+        std::stringstream ss;
+        ss << argv[3];
+        int msgCount = 0;
+        ss >> msgCount;
 
-	std::atomic<uint64_t> receivedCountPerSecs(0);
-	std::atomic<uint64_t> target(1000 * 1000);
-	std::mutex conditionVariableMutex;
-	std::atomic<bool> stop(false);
+        std::atomic<uint64_t> receivedCountPerSecs(0);
+        std::atomic<uint64_t> target(1000 * 1000);
+        std::mutex conditionVariableMutex;
+        std::atomic<bool> stop(false);
 
-	auto timer = [&stop, &receivedCountPerSecs] {
-	    while (!stop)
-	    {
-	        //
-	        // We cannot write to sentCount and receivedCount
-	        // as those are used externally, so we need to introduce
-	        // our own counters
-	        //
-	        std::stringstream ss;
-	        std::cerr << "messages received per second: "
-			  << receivedCountPerSecs << std::endl;
-	
-	        receivedCountPerSecs = 0;
-	
-	        auto duration = std::chrono::seconds(1);
-	        std::this_thread::sleep_for(duration);
-	    }
-	};
-	
-	std::thread t1(timer);
+        auto timer = [&stop, &receivedCountPerSecs] {
+            while (!stop)
+            {
+                //
+                // We cannot write to sentCount and receivedCount
+                // as those are used externally, so we need to introduce
+                // our own counters
+                //
+                std::stringstream ss;
+                std::cerr << "messages received per second: "
+                    << receivedCountPerSecs << std::endl;
+
+                receivedCountPerSecs = 0;
+
+                auto duration = std::chrono::seconds(1);
+                std::this_thread::sleep_for(duration);
+            }
+        };
+
+        std::thread t1(timer);
 
         // The io_context is required for all I/O
         net::io_context ioc;
@@ -80,38 +80,45 @@ int main(int argc, char** argv)
 
         // Set a decorator to change the User-Agent of the handshake
         ws.set_option(websocket::stream_base::decorator(
-            [](websocket::request_type& req)
-            {
-                req.set(http::field::user_agent,
-                    std::string(BOOST_BEAST_VERSION_STRING) +
-                        " websocket-client-coro");
-            }));
+                    [](websocket::request_type& req)
+                    {
+                    req.set(http::field::user_agent,
+                            std::string(BOOST_BEAST_VERSION_STRING) +
+                            " websocket-client-coro");
+                    }));
 
         // Perform the websocket handshake
-	std::string uri("/");
-	uri += std::to_string(msgCount);
+        std::string uri("/");
+        uri += std::to_string(msgCount);
 
         ws.handshake(host, uri);
 
-	for (int i = 0; i < msgCount; ++i)
-	{
-	    // This buffer will hold the incoming message
-	    beast::flat_buffer buffer;
+        auto start = std::chrono::high_resolution_clock::now();
 
-	    // Read a message into our buffer
-	    ws.read(buffer);
+        for (int i = 0; i < msgCount; ++i)
+        {
+            // This buffer will hold the incoming message
+            beast::flat_buffer buffer;
 
-	    receivedCountPerSecs++;
-	}
+            // Read a message into our buffer
+            ws.read(buffer);
+
+            receivedCountPerSecs++;
+        }
+
+        auto now = std::chrono::high_resolution_clock::now();
+        auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(now - start);
+        auto ms = milliseconds.count();
+        std::cerr << "AUTOROUTE C++ beast :: " << ms << " ms" << std::endl;
 
         // Close the WebSocket connection
         ws.close(websocket::close_code::normal);
 
         // If we get here then the connection is closed gracefully
 
-	// terminate our 'printf' thread
-	stop = true;
-	t1.join();
+        // terminate our 'printf' thread
+        stop = true;
+        t1.join();
     }
     catch(std::exception const& e)
     {

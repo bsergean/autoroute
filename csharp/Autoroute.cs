@@ -73,6 +73,8 @@ public class DevNullClientCli
         try 
         {
             await ws.ConnectAsync(uri, cancellationToken).ConfigureAwait(false);
+            DateTime start = DateTime.Now;
+
             while (true)
             {
                 var data = await DevNullClientCli.ReceiveAsync(ws, cancellationToken);
@@ -81,6 +83,9 @@ public class DevNullClientCli
                 target -= 1;
                 if (target == 0) break;
             }
+
+            TimeSpan timeItTook = DateTime.Now - start;
+            Console.WriteLine($"AUTOROUTE .Net :: {timeItTook.TotalMilliseconds} ms");
         }
         catch (System.Net.WebSockets.WebSocketException e)
         {

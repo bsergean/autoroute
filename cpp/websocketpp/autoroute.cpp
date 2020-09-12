@@ -62,7 +62,7 @@ void on_message(client* c, websocketpp::connection_hdl hdl, message_ptr msg)
         auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(now - start);
         auto ms = milliseconds.count();
 
-        std::cerr << "AUTOROUTE C++ websocketpp :: " << ms << std::endl;
+        std::cerr << "AUTOROUTE C++ websocketpp :: " << ms << " ms" << std::endl;
 
         stop = true;
         websocketpp::lib::error_code ec;
