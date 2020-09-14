@@ -5,23 +5,18 @@
 // v13.11.0
 //
 // In a different terminal, start a push server:
-// $ ws push_server -q
+// $ ws push_server
 //
-// $ node devnull_client.js
+// $ node autoroute.js ws://localhost:8008 1000000
 // messages received per second: 16643
 // messages received per second: 28065
 // messages received per second: 28432
 // messages received per second: 22207
-// messages received per second: 28805
-// messages received per second: 28694
-// messages received per second: 28180
-// messages received per second: 28601
-// messages received per second: 28698
-// messages received per second: 28931
-// messages received per second: 27975
+// ...
 //
 const WebSocket = require('ws');
 
+// Parse input parameters, url + number of message to receive
 if (process.argv.length < 3) {
   console.log('Needs url and msg count as parameters');
   process.exit(1);
@@ -32,26 +27,29 @@ let msgCount = process.argv[3];
 msgCount = parseInt(msgCount);
 let target = msgCount;
 
+// Build the url
 url += `/${msgCount}`
+
+// Create a websocket connection, with the zlib extension disabled
 const ws = new WebSocket(url, {perMessageDeflate: false})
 
+// When the connection is established, record a timestamp
 ws.on('open', function open() {
   startTime = new Date();
   console.log('connected');
 });
 
-ws.on('close', function open() {
-  console.log('remote connection closed');
-  process.exit();
-});
-
+// Every second, print how many messages we did receive
 var receivedMessages = 0;
 
+// Use a timer to print something every second
 setInterval(function timeout() {
   console.log(`messages received per second: ${receivedMessages}`)
   receivedMessages = 0;
 }, 1000);
 
+// Each time we receive a message, check whether we did receive all
+// of them. If this is the case, compute the total run duration and exit
 ws.on('message', function incoming(data) {
   receivedMessages += 1;
 

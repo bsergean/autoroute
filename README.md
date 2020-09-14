@@ -34,13 +34,11 @@ The goal of this project is to measure how fast a websocket client can receive N
 
 # Running
 
-2. Enter one of the folders (cpp/ixwebsocket, go, csharp, etc...) and type `make`.
+With docker installed and running, enter one of the folders (cpp/ixwebsocket, go, csharp, etc...) and type `make`. Or to run it for all runtimes, run make this from the top level folder.
 
 ```
 ixwebsocket$ docker-compose up
-WARNING: Found orphan containers (ixwebsocket_compile_1) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
-Recreating ixwebsocket_push_1 ... done
-Recreating ixwebsocket_autoroute_1 ... done
+...
 Attaching to ixwebsocket_push_1, ixwebsocket_autoroute_1
 autoroute_1  | Connecting to ws://push:8008...
 autoroute_1  | [2020-09-03 01:58:48.006] [info] messages received: 0 per second 0 total
