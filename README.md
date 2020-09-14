@@ -42,15 +42,12 @@ The javascript/node autoroute file is relatively simple and helps understanding 
 
 ```javascript
 //
-// node/autoroute.js
+// In a different terminal, start a push server
+// $ docker run -p8008:8008 --init -it bsergean/ws:10.3.4 push_server --host 0.0.0.0
 //
-// With ws@7.3.1
-// and 
-// node --version
-// v13.11.0
-//
-// In a different terminal, start a push server:
-// $ ws push_server
+// or if you have ws installed locally
+// $ ws push_server 
+// 
 //
 // $ node autoroute.js ws://localhost:8008 1000000
 // messages received per second: 16643
