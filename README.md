@@ -36,6 +36,8 @@ The goal of this project is to measure how fast a websocket client can receive N
 
 With docker installed and running, enter one of the folders (cpp/ixwebsocket, go, csharp, etc...) and type `make`. Or to run it for all runtimes, run make this from the top level folder.
 
+![picture](recording.svg)
+
 ```
 ixwebsocket$ docker-compose up
 ...
