@@ -112,4 +112,3 @@ Others I would like to try:
 * Java
 * Scala
 * Ziglang
-* C++ (boost beast + websocketpp library)
