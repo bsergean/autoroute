@@ -1,7 +1,0 @@
-[
-  { 
-    "directory": "/Users/bsergeant/src/foss/autoroute/build",
-    "command": "g++ /Users/bsergeant/src/foss/autoroute/scripts/foo.cpp",
-    "file": "/Users/bsergeant/src/foss/autoroute/scripts/foo.cpp"
-  }
-]
