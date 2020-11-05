@@ -1,8 +1,8 @@
-#define AL_ENABLED
+#define AL_ENABLED(a, b) if (false)
 
 int main()
 {
-    AL_ENABLED("bar_feature", context)
+    AL_ENABLED("bar_feature", "context")
     {
         return 0;
     }
