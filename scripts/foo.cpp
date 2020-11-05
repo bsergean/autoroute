@@ -22,12 +22,7 @@ int main()
 {
     Context context;
 
-    AL_ENABLED("bar_feature", context)
-    {
-        return 0;
-    }
-    else
-    {
-        return 1;
-    }
+    
+    return 1;
+
 }
