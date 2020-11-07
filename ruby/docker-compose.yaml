@@ -2,7 +2,7 @@ version: "3.3"
 services:
   push:
     entrypoint: ws push_server --host 0.0.0.0
-    image: bsergean/ws:10.3.4
+    image: bsergean/ws:10.5.7
 
   autoroute:
     entrypoint: ruby /usr/bin/autoroute.rb ws://push:8008 1000000
