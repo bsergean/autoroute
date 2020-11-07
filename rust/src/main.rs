@@ -3,6 +3,7 @@ use url::Url;
 
 use std::thread;
 use std::time::Duration;
+use std::time::Instant;
 
 use std::sync::atomic::{AtomicUsize, Ordering};
 
@@ -31,6 +32,8 @@ fn main() {
         println!("* {} {:?}", header, value);
     }
 
+    let start = Instant::now();
+
     loop {
         socket.read_message().expect("Error reading message");
         RECEIVED_MESSAGES.fetch_add(1, Ordering::Relaxed);
@@ -38,6 +41,8 @@ fn main() {
         target -= 1;
         if target == 0 {
             println!("done");
+            let elapsed = start.elapsed();
+            println!("AUTOROUTE rust {:.2?}", elapsed);
             socket.close(None);
             break;
         }
