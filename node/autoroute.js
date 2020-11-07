@@ -55,7 +55,7 @@ ws.on('message', function incoming(data) {
   if (target == 0) {
     endTime = new Date();
     let duration = endTime - startTime; //in ms
-    console.log(`AUTOROUTE Python websockets :: ${duration} ms`)
+    console.log(`AUTOROUTE node.js :: ${duration} ms`)
     process.exit();
   }
 });
