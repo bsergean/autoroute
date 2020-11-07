@@ -6,6 +6,6 @@ services:
 
   autoroute:
     entrypoint: ws autoroute ws://push:8008
-    image: bsergean/ws:10.3.5
+    image: bsergean/ws:10.5.6
     depends_on:
       - push
