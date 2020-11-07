@@ -42,6 +42,7 @@ EM.run {
   ws = Faye::WebSocket::Client.new(url)
 
   counter = 0
+  start = Time.now
 
   EM.add_periodic_timer(1) do
     p "messages received per second: #{counter}"
@@ -51,6 +52,7 @@ EM.run {
   ws.on :open do |event|
     p [:open]
     print "Connected to server\n"
+    start = Time.now
   end
 
   ws.on :message do |event|
@@ -60,6 +62,9 @@ EM.run {
 
     target = target - 1
     if target == 0
+        finish = Time.now
+        duration = 1000 * (finish - start)
+        p "AUTOROUTE Ruby :: #{duration.to_i} ms"
         exit 0
     end
   end
