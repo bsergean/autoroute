@@ -16,7 +16,7 @@ folders := \
 log_file := /tmp/autoroute.log
 
 all:
-	rm $(log_file)
+	rm -f $(log_file)
 	for folder in $(folders) ; do \
 		(cd $$folder && make | tee -a $(log_file)) ; \
 	done
