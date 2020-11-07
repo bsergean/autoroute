@@ -42,12 +42,14 @@
 #include <signal.h>
 #include <string.h>
 #include <thread>
+#include <chrono>
 
 static int interrupted;
 static struct lws* client_wsi;
 
 std::atomic<uint64_t> receivedCount(0);
 std::atomic<uint64_t> target(0);
+std::chrono::time_point<std::chrono::high_resolution_clock> start;
 
 static int callback_dumb_increment(
     struct lws* wsi, enum lws_callback_reasons reason, void* user, void* in, size_t len)
@@ -60,7 +62,10 @@ static int callback_dumb_increment(
             client_wsi = NULL;
             break;
 
-        case LWS_CALLBACK_CLIENT_ESTABLISHED: lwsl_user("%s: established\n", __func__); break;
+        case LWS_CALLBACK_CLIENT_ESTABLISHED: 
+            lwsl_user("%s: established\n", __func__);
+            start = std::chrono::high_resolution_clock::now();
+            break;
 
         case LWS_CALLBACK_CLIENT_RECEIVE:
              receivedCount++; 
@@ -68,6 +73,10 @@ static int callback_dumb_increment(
              target -= 1;
              if (target == 0)
              {
+                 auto now = std::chrono::high_resolution_clock::now();
+                 auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(now - start);
+                 auto ms = milliseconds.count();
+                 std::cerr << "AUTOROUTE libwebsockets :: " << ms << " ms" << std::endl;
                  interrupted = 1;
              }
              break;
