@@ -105,6 +105,26 @@ ws.on('message', function incoming(data) {
 });
 ```
 
+# Results
+
+.Net is the winner ... by a big margin, I wonder how they do this.
+Otherwise in the grand scheme of things everyone is in the same ballpark,
+except websocket_client library which is a bit slower. I'm tempted to say, use
+whatever language you like the best :)
+
+```
+autoroute_1  | AUTOROUTE Python websocket_client :: 39252 ms
+autoroute_1  | AUTOROUTE Python websockets :: 15254 ms
+autoroute_1  | AUTOROUTE rust :: 11.20s
+autoroute_1  | [2020-11-07 19:03:27.925] [info] AUTOROUTE IXWebSocket :: 9585 ms
+autoroute_1  | AUTOROUTE libwebsockets :: 10159 ms
+autoroute_1  | AUTOROUTE C++ beast :: 12005 ms
+autoroute_1  | AUTOROUTE C++ websocketpp :: 9813 ms
+autoroute_1  | AUTOROUTE .Net :: 1814.1672 ms
+autoroute_1  | AUTOROUTE node.js :: 8538 ms
+autoroute_1  | "AUTOROUTE Ruby :: 13326 ms"
+```
+
 # Missing languages
 
 Others I would like to try:
