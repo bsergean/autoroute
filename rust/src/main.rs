@@ -42,7 +42,7 @@ fn main() {
         if target == 0 {
             println!("done");
             let elapsed = start.elapsed();
-            println!("AUTOROUTE rust {:.2?}", elapsed);
+            println!("AUTOROUTE rust :: {:.2?}", elapsed);
             socket.close(None);
             break;
         }
