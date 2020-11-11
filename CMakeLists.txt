@@ -4,5 +4,5 @@ project(foo LANGUAGES CXX)
 set (CMAKE_CXX_STANDARD 11)
 
 add_executable(foo
-               ${PROJECT_SOURCE_DIR}/scripts/foo.cpp
-               ${PROJECT_SOURCE_DIR}/scripts/features.h)
+               ${PROJECT_SOURCE_DIR}/src/foo.cpp
+               ${PROJECT_SOURCE_DIR}/src/features.h)
