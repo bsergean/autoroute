@@ -2,7 +2,7 @@
   "experiment_settings": [],
   "feature_settings": {
     "bar_feature" : {
-      "mode": "experiment",
+      "mode": "all",
       "description": "Bar feature",
       "disabled": 0,
       "env_type": "all"
@@ -13,7 +13,7 @@
       "disabled": 0,
       "env_type": "all"
     },
-    "bazr_feature" : {
+    "bar_feature" : {
       "mode": "experiment",
       "description": "Baz feature",
       "disabled": 1,
