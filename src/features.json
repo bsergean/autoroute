@@ -5,19 +5,19 @@
       "mode": "all",
       "description": "Bar feature",
       "disabled": 0,
-      "env_type": "all"
+      "env_type": ""
     },
     "foo_feature" : {
       "mode": "experiment",
       "description": "Foo feature",
       "disabled": 0,
-      "env_type": "all"
+      "env_type": "stage"
     },
-    "bar_feature" : {
+    "baz_feature" : {
       "mode": "experiment",
       "description": "Baz feature",
       "disabled": 1,
-      "env_type": "all"
+      "env_type": ""
     }
   }
 }
