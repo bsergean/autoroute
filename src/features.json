@@ -1,0 +1,23 @@
+{
+  "experiment_settings": [],
+  "feature_settings": {
+    "bar_feature" : {
+      "mode": "experiment",
+      "description": "Bar feature",
+      "disabled": 0,
+      "env_type": "all"
+    },
+    "foo_feature" : {
+      "mode": "experiment",
+      "description": "Foo feature",
+      "disabled": 0,
+      "env_type": "all"
+    },
+    "bazr_feature" : {
+      "mode": "experiment",
+      "description": "Baz feature",
+      "disabled": 1,
+      "env_type": "all"
+    }
+  }
+}
