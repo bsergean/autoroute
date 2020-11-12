@@ -22,12 +22,30 @@ int main()
 {
     Context context;
 
-    AL_ENABLED("bar_feature", context)
+    AL_ENABLED("foo_feature", context)
     {
         return 0;
     }
     else
     {
         return 1;
+    }
+
+    AL_ENABLED("bar_feature", context)
+    {
+        return 2;
+    }
+    else
+    {
+        return 3;
+    }
+
+    AL_ENABLED("baz_feature", context)
+    {
+        return 4;
+    }
+    else
+    {
+        return 5;
     }
 }
