@@ -112,6 +112,8 @@ Otherwise in the grand scheme of things everyone is in the same ballpark,
 except websocket_client library which is a bit slower. I'm tempted to say, use
 whatever language you like the best :)
 
+2015 macbook Pro.
+
 ```
 autoroute_1  | AUTOROUTE Python websocket_client :: 39252 ms
 autoroute_1  | AUTOROUTE Python websockets :: 15254 ms
@@ -123,6 +125,21 @@ autoroute_1  | AUTOROUTE C++ websocketpp :: 9813 ms
 autoroute_1  | AUTOROUTE .Net :: 1814.1672 ms
 autoroute_1  | AUTOROUTE node.js :: 8538 ms
 autoroute_1  | "AUTOROUTE Ruby :: 13326 ms"
+```
+
+2020 macbook Intel Pro.
+
+```
+autoroute_1  | AUTOROUTE Python websocket_client :: 37184 ms
+autoroute_1  | AUTOROUTE Python websockets :: 9513 ms
+autoroute_1  | AUTOROUTE rust :: 6.15s
+autoroute_1  | [2021-06-11 20:57:06.892] [info] AUTOROUTE IXWebSocket :: 55803 ms
+autoroute_1  | AUTOROUTE libwebsockets :: 6415 ms
+autoroute_1  | AUTOROUTE C++ beast :: 6235 ms
+autoroute_1  | AUTOROUTE C++ websocketpp :: 6310 ms
+autoroute_1  | AUTOROUTE .Net :: 1019.6828 ms
+autoroute_1  | AUTOROUTE node.js :: 5691 ms
+autoroute_1  | "AUTOROUTE Ruby :: 8278 ms"
 ```
 
 # Missing languages
